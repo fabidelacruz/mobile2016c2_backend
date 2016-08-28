@@ -17,6 +17,7 @@ router.get('/locations', function(req, res, next) {
 					} else {
 						res.json(docs);
 					}
+					helpers.finishService(db);
 				});
 				break;
 				
@@ -27,6 +28,7 @@ router.get('/locations', function(req, res, next) {
 					} else {
 						res.json(helpers.emptyArrayOrProperty(docs, "countries"));
 					}
+					helpers.finishService(db);
 				});
 				break;
 				
@@ -37,6 +39,7 @@ router.get('/locations', function(req, res, next) {
 					} else {
 						res.json(helpers.emptyArrayOrProperty(docs, "states"));
 					}
+					helpers.finishService(db);
 				});
 				break;
 				
@@ -47,11 +50,13 @@ router.get('/locations', function(req, res, next) {
 					} else {
 						res.json(helpers.emptyArrayOrProperty(docs, "cities"));
 					}
+					helpers.finishService(db);
 				});
 				break;
 				
 			default:
 				helpers.replyError(res);
+				helpers.finishService(db);
 				
 		}
 		

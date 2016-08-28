@@ -18,14 +18,17 @@ module.exports = {
 			} else {
 				winston.info('Connection established to ' + url);
 				task(db);
-				db.close(function(err, result){
-					winston.info("Connection closed");
-				});
 			}
 		});
 	},
 	
 	replyError: replyError,
+	
+	finishService: function(db){
+		db.close(function(err, result){
+			winston.info("Connection closed");
+		})
+	},
 	
 	emptyArrayOrProperty: function(docs, propName){
 		return docs.length > 0 ? docs[0][propName] : [];
