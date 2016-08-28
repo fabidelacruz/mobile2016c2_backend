@@ -25,6 +25,10 @@ module.exports = {
 		});
 	},
 	
-	replyError: replyError
+	replyError: replyError,
+	
+	emptyArrayOrProperty: function(docs, propName){
+		return docs.length > 0 ? docs[0][propName] : [];
+	}
 	
 };
