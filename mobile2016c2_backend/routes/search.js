@@ -55,7 +55,7 @@ router.get('/shop', function(req, res, next) {
 			
 			case "by_radius":
 				filter.location = { $nearSphere: { $geometry: { type: "Point", coordinates: [ Number(req.query.long), Number(req.query.lat) ] }, $maxDistance: 1000 * Number(req.query.radiusKm) } };
-				db.collection("shops").find(filter).toArray(function(err, docs){
+				db.collection("shops").find(filter, {products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
 					} else {
@@ -67,7 +67,7 @@ router.get('/shop', function(req, res, next) {
 				
 			case "by_city":
 				filter.city = new mongo.ObjectID(req.query.id_city);
-				db.collection("shops").find(filter).toArray(function(err, docs){
+				db.collection("shops").find(filter, {products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
 					} else {
@@ -79,7 +79,7 @@ router.get('/shop', function(req, res, next) {
 				
 			case "by_country":
 				filter.country = new mongo.ObjectID(req.query.id_country);
-				db.collection("shops").find(filter).toArray(function(err, docs){
+				db.collection("shops").find(filter, {products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
 					} else {
@@ -91,7 +91,7 @@ router.get('/shop', function(req, res, next) {
 				
 			case "by_state":
 				filter.state = new mongo.ObjectID(req.query.id_state);
-				db.collection("shops").find(filter).toArray(function(err, docs){
+				db.collection("shops").find(filter, {products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
 					} else {
@@ -103,7 +103,7 @@ router.get('/shop', function(req, res, next) {
 				
 			case "by_continent":
 				filter.continent = new mongo.ObjectID(req.query.id_continent);
-				db.collection("shops").find(filter).toArray(function(err, docs){
+				db.collection("shops").find(filter, {products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
 					} else {
@@ -114,7 +114,7 @@ router.get('/shop', function(req, res, next) {
 				break;
 				
 			case "by_id":
-				db.collection("shops").find({ _id: new mongo.ObjectID(req.query.id_shop) }).toArray(function(err, docs){
+				db.collection("shops").find({ _id: new mongo.ObjectID(req.query.id_shop) }, {products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
 					} else {
