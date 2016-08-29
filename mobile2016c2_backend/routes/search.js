@@ -4,7 +4,41 @@ var helpers = require('./helpers');
 var mongo = require('mongodb');
 
 router.get('/product', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+	helpers.processService(res, function(db){
+		
+		switch (req.query.query) {
+			
+			// TODO validate input params presence and format
+			
+			case "all":
+				db.collection("products").find().toArray(function(err, docs){
+					if (err) {
+						helpers.replyError(res);
+					} else {
+						res.json(docs);
+					}
+					helpers.finishService(db);
+				});
+				break;
+				
+			case "by_barcode":
+				db.collection("products").find({ _id: req.query.barcode }).toArray(function(err, docs){
+					if (err) {
+						helpers.replyError(res);
+					} else {
+						res.json(docs);
+					}
+					helpers.finishService(db);
+				});
+				break;
+				
+			default:
+				helpers.replyError(res);
+				helpers.finishService(db);
+				
+		}
+		
+	});
 });
 
 router.get('/shop', function(req, res, next) {
