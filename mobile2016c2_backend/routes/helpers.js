@@ -9,7 +9,7 @@ var replyError = function(res){
 };
 
 module.exports = {
-	
+
 	processService: function(res, task){
 		MongoClient.connect(url, function (err, db) {
 			if (err) {
@@ -21,17 +21,21 @@ module.exports = {
 			}
 		});
 	},
-	
+
 	replyError: replyError,
-	
+
 	finishService: function(db){
 		db.close(function(err, result){
 			winston.info("Connection closed");
 		})
 	},
-	
+
 	emptyArrayOrProperty: function(docs, propName){
 		return docs.length > 0 ? docs[0][propName] : [];
+	},
+
+	emptyArrayOrObject: function(docs){
+		return docs.length > 0 ? docs[0] : [];
 	}
-	
+
 };
