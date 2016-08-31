@@ -65,7 +65,8 @@ router.get('/shop', function(req, res, next) {
 			// TODO validate input params presence and format
 
 			case "by_name":
-				db.collection("shops").find({ name: { $regex: '.*' + req.query.name + '.*', $options: 'i' } },{products:0}).toArray(function(err, docs){
+				filter.name = { $regex: '.*' + req.query.name + '.*', $options: 'i' };
+				db.collection("shops").find(filter,{products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
 					} else {
@@ -76,7 +77,7 @@ router.get('/shop', function(req, res, next) {
 				break;
 
 			case "all":
-				db.collection("shops").find({},{products:0}).toArray(function(err, docs){
+				db.collection("shops").find(filter,{products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
 					} else {
@@ -99,7 +100,7 @@ router.get('/shop', function(req, res, next) {
 				break;
 
 			case "by_city":
-				filter.city = new mongo.ObjectID(req.query.id_city);
+				filter["location.city"] = new mongo.ObjectID(req.query.id_city);
 				db.collection("shops").find(filter, {products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
@@ -111,7 +112,7 @@ router.get('/shop', function(req, res, next) {
 				break;
 
 			case "by_country":
-				filter.country = new mongo.ObjectID(req.query.id_country);
+				filter["location.country"] = new mongo.ObjectID(req.query.id_country);
 				db.collection("shops").find(filter, {products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
@@ -123,7 +124,7 @@ router.get('/shop', function(req, res, next) {
 				break;
 
 			case "by_state":
-				filter.state = new mongo.ObjectID(req.query.id_state);
+				filter["location.state"] = new mongo.ObjectID(req.query.id_state);
 				db.collection("shops").find(filter, {products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
@@ -135,7 +136,7 @@ router.get('/shop', function(req, res, next) {
 				break;
 
 			case "by_continent":
-				filter.continent = new mongo.ObjectID(req.query.id_continent);
+				filter["location.continent"] = new mongo.ObjectID(req.query.id_continent);
 				db.collection("shops").find(filter, {products:0}).toArray(function(err, docs){
 					if (err) {
 						helpers.replyError(res);
