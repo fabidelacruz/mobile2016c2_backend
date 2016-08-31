@@ -2,6 +2,8 @@ var winston = require('winston');
 
 var MongoClient = require('mongodb').MongoClient;
 
+var crypto = require('crypto');
+
 var url = 'mongodb://mberetta.com.ar:27017/mobile2016c2';
 
 var replyError = function(res){
@@ -36,6 +38,10 @@ module.exports = {
 
 	emptyArrayOrObject: function(docs){
 		return docs.length > 0 ? docs[0] : [];
+	},
+
+	md5: function(str){
+		return crypto.createHash("md5").update(str, "ascii").digest("hex");
 	}
 
 };
