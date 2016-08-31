@@ -42,6 +42,10 @@ module.exports = {
 
 	md5: function(str){
 		return crypto.createHash("md5").update(str, "ascii").digest("hex");
+	},
+
+	stringToBoolean: function(str){
+		return str.toLowerCase() === 'true';
 	}
 
 };

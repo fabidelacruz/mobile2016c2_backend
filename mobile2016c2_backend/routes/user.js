@@ -37,4 +37,27 @@ router.get('/config', function(req, res, next) {
 	});
 });
 
+router.patch('/config', function(req, res, next) {
+  helpers.processService(res, function(db){
+
+		// TODO validate input params presence and format
+
+    var defaultLocation = {
+      city: new mongo.ObjectID(req.query.id_default_city),
+      state: new mongo.ObjectID(req.query.id_default_state),
+      continent: new mongo.ObjectID(req.query.id_default_continent),
+      country: new mongo.ObjectID(req.query.id_default_country)
+    };
+		db.collection("users").updateOne({ _id: new mongo.ObjectID(req.query.id_user) }, { $set: { defaultRadius: Number(req.query.default_radius), defaultExclusive: helpers.stringToBoolean(req.query.default_exclusive), defaultLocation: defaultLocation } }, function(err, resp){
+			if (err) {
+				helpers.replyError(res);
+			} else {
+				res.json(resp);
+			}
+			helpers.finishService(db);
+		});
+
+	});
+});
+
 module.exports = router;
