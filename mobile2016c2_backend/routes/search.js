@@ -37,7 +37,7 @@ router.get('/product', function(req, res, next) {
 					if (err) {
 						helpers.replyError(res);
 					} else {
-						res.json(helpers.emptyArrayOrObject(docs));
+						res.json(helpers.nullOrObject(docs));
 					}
 					helpers.finishService(db);
 				});
@@ -152,7 +152,7 @@ router.get('/shop', function(req, res, next) {
 					if (err) {
 						helpers.replyError(res);
 					} else {
-						res.json(helpers.emptyArrayOrObject(docs));
+						res.json(helpers.nullOrObject(docs));
 					}
 					helpers.finishService(db);
 				});

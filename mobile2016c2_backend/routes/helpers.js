@@ -36,8 +36,8 @@ module.exports = {
 		return docs.length > 0 ? docs[0][propName] : [];
 	},
 
-	emptyArrayOrObject: function(docs){
-		return docs.length > 0 ? docs[0] : [];
+	nullOrObject: function(docs){
+		return docs.length > 0 ? docs[0] : null;
 	},
 
 	md5: function(str){
